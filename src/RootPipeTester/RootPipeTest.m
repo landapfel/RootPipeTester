@@ -156,7 +156,7 @@ static NSString * const FILE_PATH_FMT = @"/private/tmp/rootpipe_tester_%@.txt";
 	
 	// "Export" file attributes
 	if (fileAttr) {
-		*fileAttr = [writtenFileAttributes copy];
+		*fileAttr = [NSDictionary dictionaryWithDictionary:writtenFileAttributes];
 	}
 	
 	NSString *writtenFilePermissions = [NSString stringWithFormat:@"%o", [(NSNumber *)[writtenFileAttributes objectForKey:NSFilePosixPermissions] shortValue]]; // octal permissions
@@ -177,7 +177,7 @@ static NSString * const FILE_PATH_FMT = @"/private/tmp/rootpipe_tester_%@.txt";
 - (NSSet *)usedTestFiles {
 	NSSet *copy = nil;
 	[_testFilesLock lock];
-		copy = [_usedTestFiles copy];
+		copy = [NSSet setWithSet:_usedTestFiles];
 	[_testFilesLock unlock];
 	
 	return copy;
